@@ -4,6 +4,9 @@ import datetime
 import spy
 from random import randint
 import tic_tac_toe
+import requests
+import json
+
 candies = 0
 
 
@@ -64,6 +67,7 @@ def c_command(update: Update, context: CallbackContext):
 
 
 def ttt_command(update: Update, context: CallbackContext):
+    spy.log(update, context)
 
     def field_print(t):
         for i in range(3):
@@ -78,6 +82,7 @@ def ttt_command(update: Update, context: CallbackContext):
 
 
 def t_command(update: Update, context: CallbackContext):
+    spy.log(update, context)
 
     def field_print(t):
         for i in range(3):
@@ -86,7 +91,6 @@ def t_command(update: Update, context: CallbackContext):
                 s += t[i][j] + ' | '
             update.message.reply_text(s)
 
-    # update.message.reply_text('Enter /t X Y (0,1,2 through space): ')
     msg = update.message.text.split()
     human = [int(msg[1]), int(msg[2])]
     if not (tic_tac_toe.is_valid_cell(human) and tic_tac_toe.cell_empty(human)):
@@ -112,3 +116,14 @@ def t_command(update: Update, context: CallbackContext):
         return
     else:
         update.message.reply_text('Your turn,\nEnter /t X Y (0,1,2 through space): ')
+
+
+def duck_command(update: Update, context: CallbackContext):
+    spy.log(update, context)
+    update.message.reply_text('Duck')
+    response = requests.get('https://random-d.uk/api/random')
+    duck = json.loads(response.text)
+    update.message.reply_photo(duck['url'])
+
+
+
