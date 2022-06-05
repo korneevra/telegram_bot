@@ -86,7 +86,7 @@ def t_command(update: Update, context: CallbackContext):
                 s += t[i][j] + ' | '
             update.message.reply_text(s)
 
-    update.message.reply_text('Enter /t X Y (0,1,2 through space): ')
+    # update.message.reply_text('Enter /t X Y (0,1,2 through space): ')
     msg = update.message.text.split()
     human = [int(msg[1]), int(msg[2])]
     if not (tic_tac_toe.is_valid_cell(human) and tic_tac_toe.cell_empty(human)):
@@ -97,12 +97,18 @@ def t_command(update: Update, context: CallbackContext):
     if tic_tac_toe.win_check(tic_tac_toe.dot_hum):
         update.message.reply_text("Your WIN!\nTo new game enter /ttt")
         return
+    elif tic_tac_toe.map_full(tic_tac_toe.t_map):
+        update.message.reply_text("Drawn game!\nTo new game enter /ttt")
+        return
     bot = tic_tac_toe.bot_turn()
     tic_tac_toe.t_map[bot[1]][bot[0]] = tic_tac_toe.dot_bot
     update.message.reply_text('BOT turn:')
     field_print(tic_tac_toe.t_map)
     if tic_tac_toe.win_check(tic_tac_toe.dot_bot):
         update.message.reply_text("Bot WIN!\nTo new game enter /ttt")
+        return
+    elif tic_tac_toe.map_full(tic_tac_toe.t_map):
+        update.message.reply_text("Drawn game!\nTo new game enter /ttt")
         return
     else:
         update.message.reply_text('Your turn,\nEnter /t X Y (0,1,2 through space): ')

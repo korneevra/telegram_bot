@@ -15,7 +15,7 @@ def field_init():
 
 
 def cell_empty(cell):
-    return t_map[cell[1]][cell[0]] == '  '
+    return t_map[cell[1]][cell[0]] == dot_empty
 
 
 def is_valid_cell(cell):
@@ -39,4 +39,11 @@ def win_check(dot):
     if t_map[0][0] == t_map[1][1] == t_map[2][2] == dot: return True
     if t_map[0][2] == t_map[1][1] == t_map[2][0] == dot: return True
 
+
+def map_full(map):
+    for i in map:
+        for j in i:
+            if j == dot_empty:
+                return False
+    return True
 
