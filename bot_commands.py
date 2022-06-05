@@ -6,6 +6,7 @@ from random import randint
 import tic_tac_toe
 import requests
 import json
+import wikipedia
 
 candies = 0
 
@@ -17,7 +18,7 @@ def hi_command(update: Update, context: CallbackContext):
 
 def help_command(update: Update, context: CallbackContext):
     spy.log(update, context)
-    update.message.reply_text('/hi\n/time\n/help\n/calc\n/candy\n/ttt - "TicTacToe"')
+    update.message.reply_text('/hi\n/time\n/help\n/calc\n/candy\n/ttt - "XO"\n/duck')
 
 
 def time_command(update: Update, context: CallbackContext):
@@ -120,10 +121,17 @@ def t_command(update: Update, context: CallbackContext):
 
 def duck_command(update: Update, context: CallbackContext):
     spy.log(update, context)
-    update.message.reply_text('Duck')
     response = requests.get('https://random-d.uk/api/random')
     duck = json.loads(response.text)
     update.message.reply_photo(duck['url'])
+
+
+def wiki_command(update: Update, context: CallbackContext):
+    spy.log(update, context)
+    query = update.message.text.split()
+    # res = wikipedia.search(query, results=3, suggestion=False)
+    page = wikipedia.page(query)
+    update.message.reply_html(page.url)
 
 
 
