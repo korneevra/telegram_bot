@@ -18,7 +18,7 @@ def hi_command(update: Update, context: CallbackContext):
 
 def help_command(update: Update, context: CallbackContext):
     spy.log(update, context)
-    update.message.reply_text('/hi\n/time\n/help\n/calc\n/candy\n/ttt - "XO"\n/duck')
+    update.message.reply_text('/hi\n/time\n/help\n/calc\n/candy\n/ttt - "XO"\n/duck\n/wiki')
 
 
 def time_command(update: Update, context: CallbackContext):
